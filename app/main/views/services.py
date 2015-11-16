@@ -402,6 +402,7 @@ def edit_service_submission(framework_slug, lot_slug, service_id, section_id):
 
     draft = section.unformat_data(draft)
 
+
     return render_template(
         "services/edit_submission_section.html",
         section=section,
@@ -457,6 +458,11 @@ def update_section_submission(framework_slug, lot_slug, service_id, section_id):
         except HTTPError as e:
             update_data = section.unformat_data(update_data)
             errors = section.get_error_messages(e.message, draft['lot'])
+
+    keep_these_keys = [u'serviceName', u'id', u'supplierId', u'lot']
+    for k in keep_these_keys:
+        if k in draft and k not in update_data:
+            update_data[k] = draft[k]
 
     if errors:
         if not update_data.get('serviceName', None):
