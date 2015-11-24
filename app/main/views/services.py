@@ -6,7 +6,7 @@ from ... import data_api_client, flask_featureflags
 from ...main import main, content_loader
 from ..helpers.services import (
     is_service_modifiable, is_service_associated_with_supplier,
-    get_service_attributes,
+    get_service_attributes, reformat_pricing_data,
     get_draft_document_url, count_unanswered_questions,
     get_next_section_name
 )
@@ -359,9 +359,8 @@ def view_service_submission(framework_slug, lot_slug, service_id):
     if not is_service_associated_with_supplier(draft):
         abort(404)
 
-    draft['priceString'] = format_service_price(draft)
     content = content_loader.get_builder(framework['slug'], 'edit_submission').filter(draft)
-
+    draft = reformat_pricing_data(draft, content)
     sections = get_service_attributes(draft, content)
 
     unanswered_required, unanswered_optional = count_unanswered_questions(sections)

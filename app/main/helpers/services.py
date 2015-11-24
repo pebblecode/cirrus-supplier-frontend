@@ -1,9 +1,12 @@
+import functools
+import operator
 import re
 from datetime import datetime
 from flask import abort, current_app
 from flask_login import current_user
 
 from dmutils.apiclient import APIError
+from dmutils.formats import format_field_based_price
 from dmutils.service_attribute import Attribute
 
 try:
@@ -46,6 +49,16 @@ def count_unanswered_questions(service_attributes):
                 unanswered_optional += 1
 
     return unanswered_required, unanswered_optional
+
+
+def reformat_pricing_data(service_data, service_questions):
+    nest_questions = [x.questions for x in service_questions.sections]
+    questions = functools.reduce(operator.add, nest_questions, [])
+    pricing_questions = [x for x in questions if x['type'] == "pricing" and "fields" in x]
+    for question in pricing_questions:
+        name = question['id']
+        service_data[name] = format_field_based_price(service_data, question)
+    return service_data
 
 
 def get_service_attributes(service_data, service_questions):
