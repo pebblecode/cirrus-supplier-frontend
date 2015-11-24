@@ -114,6 +114,8 @@
     name=question_content.id,
     value=service_data[question_content.id],
     hint=(question_content.hint or '')|markdown,
+    question=question_content.question,
+    optional_fields=question_content.optional_fields,
     fields=question_content.fields,
     price=service_data.get(question_content.fields.price),
     minimum_price=service_data.get(question_content.minimum_price),
