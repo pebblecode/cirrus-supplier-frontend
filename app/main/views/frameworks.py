@@ -86,16 +86,25 @@ def framework_dashboard(framework_slug):
     if countersigned_framework_agreement_exists_in_bucket(framework_slug, current_app.config['DM_AGREEMENTS_BUCKET']):
         countersigned_agreement_file = COUNTERSIGNED_AGREEMENT_FILENAME
 
+    slugs_to_display_names = {
+        'digital-outcomes': 'digital outcome',
+        'digital-specialists': 'individual specialist',
+        'user-research-studios': 'user research studio',
+        'user-research-participants': 'user research participant recruitment'
+    }
+
     return render_template(
         "frameworks/dashboard.html",
         application_made=(len(complete_drafts) > 0 and declaration_status == 'complete'),
         completed_lots=[{
             'name': lot['name'],
+            # 1 platform as a service service
+            # 2 softwares as a service
+            # 2 platform as a service services
+            'display_name': slugs_to_display_names.get(lot['slug'], lot['name'].lower()),
             'complete_count': count_drafts_by_lot(complete_drafts, lot['slug']),
-            'one_service_limit': lot['oneServiceLimit'],
-            'unit': 'lab' if framework['slug'] == 'digital-outcomes-and-specialists' else 'service',
-            'unit_plural': 'labs' if framework['slug'] == 'digital-outcomes-and-specialists' else 'service'
-            # TODO: ^ make this dynamic, eg, lab, service, unit
+            'unit': 'service',
+            'unit_plural': 'services'
         } for lot in framework['lots'] if count_drafts_by_lot(complete_drafts, lot['slug'])],
         counts={
             "draft": len(drafts),

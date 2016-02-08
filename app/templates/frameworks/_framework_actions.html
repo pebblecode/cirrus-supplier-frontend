@@ -91,17 +91,10 @@
     {% endif %}
         <ul class="browse-list-item-status-list">
           {% for lot in completed_lots %}
-            {% if lot.one_service_limit %}
             <li>
-              {{lot.name|lower}}
+              {{ lot.complete_count }} {{ lot.display_name }}
+              {{ 'service' if (1 == lot.complete_count) else 'services' }}
             </li>
-            {% else %}
-            <li>
-              {{ lot.complete_count }}
-              {{ lot.unit if (1 == lot.complete_count) else lot.unit_plural }} in
-              {{ lot.name|lower }}
-            </li>
-            {% endif %}
           {% endfor %}
         </ul>
       </div>

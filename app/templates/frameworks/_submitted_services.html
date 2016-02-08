@@ -3,14 +3,10 @@
   <h2>You submitted:</h2>
   <ul class="list-bullet">
     {% for lot in completed_lots %}
-      {% if lot.one_service_limit %}
-        <li>{{ lot.name }}</li>
-      {% else %}
-        <li>
-          {{ lot.complete_count }} {{ lot.name }}
-          {{ lot.unit if (1 == lot.complete_count) else lot.unit_plural }}
-        </li>
-      {% endif %}
+      <li>
+        {{ lot.complete_count }} {{ lot.display_name }}
+        {{ 'service' if (1 == lot.complete_count) else 'services' }}
+      </li>
     {% endfor %}
   </ul>
   <a href="{{ url_for('.framework_submission_lots', framework_slug=framework.slug) }}">
