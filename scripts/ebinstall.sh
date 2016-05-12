@@ -7,7 +7,8 @@ echo "running npm install"
 npm install --unsafe-perm
 echo "DONE"
 echo "running bower install"
-node_modules/.bin/bower install --allow-root
+#node_modules/.bin/bower install --allow-root
+./node_modules/bower/bin/bower install --allow-root
 echo "DONE"
 echo "running frontend-build:production"
 npm run frontend-build:production
