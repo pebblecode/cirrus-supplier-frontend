@@ -379,7 +379,7 @@ def framework_updates_email_clarification_question(framework_slug):
     if framework['clarificationQuestionsOpen']:
         subject = "{} clarification question".format(framework['name'])
         to_address = current_app.config['DM_CLARIFICATION_QUESTION_EMAIL']
-        from_address = "suppliers+{}@digitalmarketplace.service.gov.uk".format(framework['slug'])
+        from_address = "suppliers+{}@cirrus.pebblecode.com".format(framework['slug'])
         email_body = render_template(
             "emails/clarification_question.html",
             supplier_name=current_user.supplier_name,

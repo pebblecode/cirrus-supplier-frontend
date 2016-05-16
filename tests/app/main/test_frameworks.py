@@ -121,10 +121,9 @@ class TestFrameworksDashboard(BaseApplicationTest):
             send_email.assert_called_once_with(
                 ['email1', 'email2'],
                 mock.ANY,
-                'MANDRILL',
                 'You have started your G-Cloud 7 application',
-                'do-not-reply@digitalmarketplace.service.gov.uk',
-                'Digital Marketplace Admin',
+                'do-not-reply@cirrus.pebblecode.com',
+                'Cirrus Admin',
                 ['digital-outcomes-and-specialists-application-started']
             )
 
@@ -746,7 +745,7 @@ class TestFrameworkAgreementUpload(BaseApplicationTest):
             data_api_client.get_framework.return_value = self.framework(status='standstill')
             data_api_client.get_supplier_framework_info.return_value = self.supplier_framework(
                 on_framework=True)
-            send_email.side_effect = MandrillException()
+            send_email.side_effect = Exception()
 
             res = self.client.post(
                 '/suppliers/frameworks/g-cloud-7/agreement',
@@ -1274,21 +1273,19 @@ class TestSendClarificationQuestionEmail(BaseApplicationTest):
             send_email.assert_any_call(
                 "digitalmarketplace@mailinator.com",
                 FakeMail('Supplier name:', 'User name:'),
-                "MANDRILL",
                 "Test Framework clarification question",
-                "do-not-reply@digitalmarketplace.service.gov.uk",
+                "do-not-reply@cirrus.pebblecode.com",
                 "Test Framework Supplier",
                 ["clarification-question"],
-                reply_to="suppliers+g-cloud-7@digitalmarketplace.service.gov.uk",
+                reply_to="suppliers+g-cloud-7@cirrus.pebblecode.com",
             )
         if succeeds:
             send_email.assert_any_call(
                 "email@email.com",
                 FakeMail('Thanks for sending your Test Framework clarification', 'Test Framework updates page'),
-                "MANDRILL",
                 "Thanks for your clarification question",
-                "do-not-reply@digitalmarketplace.service.gov.uk",
-                "Digital Marketplace Admin",
+                "do-not-reply@cirrus.pebblecode.com",
+                "Cirrus Admin",
                 ["clarification-question-confirm"]
             )
 
@@ -1303,9 +1300,8 @@ class TestSendClarificationQuestionEmail(BaseApplicationTest):
             send_email.assert_called_with(
                 "digitalmarketplace@mailinator.com",
                 FakeMail('Test Framework question asked'),
-                "MANDRILL",
                 "Test Framework application question",
-                "do-not-reply@digitalmarketplace.service.gov.uk",
+                "do-not-reply@cirrus.pebblecode.com",
                 "Test Framework Supplier",
                 ["application-question"],
                 reply_to="email@email.com",
@@ -1420,7 +1416,7 @@ class TestSendClarificationQuestionEmail(BaseApplicationTest):
     @mock.patch('app.main.views.frameworks.send_email')
     def test_should_be_a_503_if_email_fails(self, send_email, data_api_client):
         data_api_client.get_framework.return_value = self.framework('open', name='Test Framework')
-        send_email.side_effect = MandrillException("Arrrgh")
+        send_email.side_effect = Exception("Arrrgh")
 
         clarification_question = 'This is a clarification question.'
         response = self._send_email(clarification_question)

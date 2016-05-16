@@ -10,7 +10,7 @@ import mock
 
 EMAIL_EMPTY_ERROR = "Email address must be provided"
 EMAIL_INVALID_ERROR = "Please enter a valid email address"
-EMAIL_SENT_MESSAGE = "If the email address you've entered belongs to a Digital Marketplace account, we'll send a link to reset the password."  # noqa
+EMAIL_SENT_MESSAGE = "If the email address you've entered belongs to a Cirrus account, we'll send a link to reset the password."  # noqa
 PASSWORD_EMPTY_ERROR = "Please enter your password"
 PASSWORD_INVALID_ERROR = "Passwords must be between 10 and 50 characters"
 PASSWORD_MISMATCH_ERROR = "The passwords you entered do not match"
@@ -86,7 +86,6 @@ class TestInviteUser(BaseApplicationTest):
                 mock.ANY,
                 mock.ANY,
                 mock.ANY,
-                mock.ANY,
             )
 
     @mock.patch('app.main.views.login.data_api_client')
@@ -135,7 +134,7 @@ class TestInviteUser(BaseApplicationTest):
         with self.app.app_context():
             self.login()
 
-            send_email.side_effect = MandrillException(Exception('API is down'))
+            send_email.side_effect = Exception(Exception('API is down'))
 
             res = self.client.post(
                 '/suppliers/invite-user',
@@ -165,7 +164,6 @@ class TestInviteUser(BaseApplicationTest):
             send_email.assert_called_once_with(
                 "email@email.com",
                 mock.ANY,
-                "API KEY",
                 "SUBJECT",
                 "EMAIL FROM",
                 "EMAIL NAME",

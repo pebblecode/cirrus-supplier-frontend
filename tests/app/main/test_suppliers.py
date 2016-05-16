@@ -1483,10 +1483,10 @@ class TestCreateSupplier(BaseApplicationTest):
             send_email.assert_called_once_with(
                 "valid@email.com",
                 mock.ANY,
-                "MANDRILL",
-                "Create your Digital Marketplace account",
-                "enquiries@digitalmarketplace.service.gov.uk",
-                "Digital Marketplace Admin",
+
+                "Create your Cirrus account",
+                "enquiries@cirrus.pebblecode.com",
+                "Cirrus Admin",
                 ["user-creation"]
             )
 
@@ -1508,7 +1508,7 @@ class TestCreateSupplier(BaseApplicationTest):
     @mock.patch("app.main.suppliers.data_api_client")
     @mock.patch("app.main.suppliers.send_email")
     @mock.patch("app.main.suppliers.generate_token")
-    def test_should_be_a_503_if_mandrill_failure_on_creation_email(self, generate_token, send_email, data_api_client):
+    def test_should_be_a_503_if_email_service_failure_on_creation_email(self, generate_token, send_email, data_api_client):
         with self.client.session_transaction() as sess:
             sess['email_address'] = "email_address"
             sess['phone_number'] = "phone_number"
@@ -1517,7 +1517,7 @@ class TestCreateSupplier(BaseApplicationTest):
             sess['company_name'] = "company_name"
             sess['account_email_address'] = "valid@email.com"
 
-        send_email.side_effect = MandrillException("Failed")
+        send_email.side_effect = Exception("Failed")
         data_api_client.create_supplier.return_value = self.supplier()
 
         res = self.client.post(
@@ -1537,10 +1537,9 @@ class TestCreateSupplier(BaseApplicationTest):
         send_email.assert_called_once_with(
             "valid@email.com",
             mock.ANY,
-            "MANDRILL",
-            "Create your Digital Marketplace account",
-            "enquiries@digitalmarketplace.service.gov.uk",
-            "Digital Marketplace Admin",
+            "Create your Cirrus account",
+            "enquiries@cirrus.pebblecode.com",
+            "Cirrus Admin",
             ["user-creation"]
         )
 

@@ -165,17 +165,15 @@ class TestSubmitClarificationQuestions(BaseApplicationTest):
                 from_name='Brief Framework Name Supplier',
                 tags=['brief-clarification-question'],
                 email_body=FakeMail("important question"),
-                from_email='do-not-reply@digitalmarketplace.service.gov.uk',
-                api_key='MANDRILL',
+                from_email='do-not-reply@cirrus.pebblecode.com',
                 to_email_addresses=['buyer@email.com'],
                 subject=u"You\u2019ve received a new supplier question about \u2018I need a thing to do a thing\u2019"
             ),
             mock.call(
-                from_name='Digital Marketplace Admin',
+                from_name='Cirrus Admin',
                 tags=['brief-clarification-question-confirmation'],
                 email_body=FakeMail("important question"),
-                from_email='do-not-reply@digitalmarketplace.service.gov.uk',
-                api_key='MANDRILL',
+                from_email='do-not-reply@cirrus.pebblecode.com',
                 to_email_addresses=['email@email.com'],
                 subject=u"Your question about \u2018I need a thing to do a thing\u2019"
             ),
@@ -197,7 +195,7 @@ class TestSubmitClarificationQuestions(BaseApplicationTest):
         brief['briefs']['clarificationQuestionsPublishedBy'] = '2016-03-29T10:11:13.000000Z'
         data_api_client.get_brief.return_value = brief
 
-        send_email.side_effect = MandrillException
+        send_email.side_effect = Exception
 
         res = self.client.post('/suppliers/opportunities/1234/ask-a-question', data={
             'clarification-question': "important question",

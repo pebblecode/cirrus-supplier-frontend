@@ -111,8 +111,8 @@ class Development(Config):
     FEATURE_FLAGS_EDIT_SECTIONS = enabled_since('2015-06-03')
 
     DM_DATA_API_URL = os.getenv('DM_DATA_API_URL', "http://localhost:5000")
-    DM_DATA_API_AUTH_TOKEN = os.getenv('DM_API_AUTH_TOKEN' ,"myToken")
-    DM_API_AUTH_TOKEN = os.getenv('DM_API_AUTH_TOKEN' ,"myToken")
+    DM_DATA_API_AUTH_TOKEN = os.getenv('DM_API_AUTH_TOKEN', "myToken")
+    DM_API_AUTH_TOKEN = os.getenv('DM_API_AUTH_TOKEN', "myToken")
 
     DM_SUBMISSIONS_BUCKET = "cirrus-submissions-dev-dev"
     DM_COMMUNICATIONS_BUCKET = "cirrus-communications-dev-dev"

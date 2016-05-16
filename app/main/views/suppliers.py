@@ -23,6 +23,7 @@ from .users import get_current_suppliers_users
 
 from cirrus.email import send_email
 
+
 @main.route('')
 @login_required
 def dashboard():

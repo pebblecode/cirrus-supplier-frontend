@@ -34,10 +34,10 @@ class TestApplication(BaseApplicationTest):
             in res.get_data(as_text=True))
         assert_true(
             "If you can't find what you're looking for, contact us at "
-            "<a href=\"mailto:enquiries@digitalmarketplace.service.gov.uk?"
+            "<a href=\"mailto:enquiries@cirrus.pebblecode.com?"
             "subject=Digital%20Marketplace%20feedback\" title=\"Please "
-            "send feedback to enquiries@digitalmarketplace.service.gov.uk\">"
-            "enquiries@digitalmarketplace.service.gov.uk</a>"
+            "send feedback to enquiries@dcirrus.pebblecode.com\">"
+            "enquiries@cirrus.pebblecode.com</a>"
             in res.get_data(as_text=True))
 
     @mock.patch('app.main.views.suppliers.data_api_client')
