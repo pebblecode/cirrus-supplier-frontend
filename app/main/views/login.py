@@ -4,10 +4,12 @@ from flask_login import current_user
 from flask import current_app, flash, redirect, render_template, url_for, abort
 from flask_login import login_user
 
+from cirrus.email import send_email
+
 from dmapiclient import HTTPError
 from dmapiclient.audit import AuditTypes
 from dmutils.user import User
-from dmutils.email import decode_invitation_token, generate_token, send_email, MandrillException
+from dmutils.email import decode_invitation_token, generate_token
 
 from .. import main
 from ..forms.auth_forms import EmailAddressForm, CreateUserForm

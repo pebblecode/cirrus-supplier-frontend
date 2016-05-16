@@ -6,9 +6,9 @@ except ImportError:
 from nose.tools import assert_equal, assert_true, assert_in, assert_not_in
 import mock
 from lxml import html
+from cirrus.email import send_email
 from dmapiclient import APIError
 from dmapiclient.audit import AuditTypes
-from dmutils.email import MandrillException
 from dmutils.s3 import S3ResponseError
 
 from ..helpers import BaseApplicationTest, FULL_G7_SUBMISSION, FakeMail

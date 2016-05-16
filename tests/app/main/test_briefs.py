@@ -2,9 +2,9 @@
 from __future__ import unicode_literals
 
 import mock
+from cirrus.email import send_email
 from dmapiclient import api_stubs, HTTPError
 from dmapiclient.audit import AuditTypes
-from dmutils.email import MandrillException
 from ..helpers import BaseApplicationTest, FakeMail
 from lxml import html
 

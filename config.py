@@ -23,7 +23,6 @@ class Config(object):
 
     DM_DATA_API_URL = None
     DM_DATA_API_AUTH_TOKEN = None
-    DM_MANDRILL_API_KEY = None
     DM_CLARIFICATION_QUESTION_EMAIL = 'digitalmarketplace@mailinator.com'
     DM_FRAMEWORK_AGREEMENTS_EMAIL = 'enquiries@example.com'
 
@@ -90,7 +89,6 @@ class Test(Config):
     DM_LOG_LEVEL = 'CRITICAL'
     WTF_CSRF_ENABLED = False
     SERVER_NAME = 'localhost'
-    DM_MANDRILL_API_KEY = 'MANDRILL'
     SHARED_EMAIL_KEY = "KEY"
     DM_CLARIFICATION_QUESTION_EMAIL = 'digitalmarketplace@mailinator.com'
 
@@ -122,7 +120,6 @@ class Development(Config):
     DM_DOCUMENTS_BUCKET = "cirrus-documents-dev-dev"
     DM_ASSETS_URL = "https://{}.s3-eu-west-1.amazonaws.com".format(DM_SUBMISSIONS_BUCKET)
 
-    DM_MANDRILL_API_KEY = "not_a_real_key"
     SHARED_EMAIL_KEY = "very_secret"
     SECRET_KEY = 'verySecretKey'
 

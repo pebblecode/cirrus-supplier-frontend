@@ -1,7 +1,7 @@
 # coding=utf-8
 
+from cirrus.email import send_email
 from dmapiclient import HTTPError
-from dmutils.email import MandrillException
 import mock
 from flask import session
 from nose.tools import assert_equal, assert_true, assert_in, assert_false, assert_not_in

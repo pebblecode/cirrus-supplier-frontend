@@ -1,9 +1,10 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
+from cirrus.email import send_email
 from dmapiclient import HTTPError
 from dmapiclient.audit import AuditTypes
-from dmutils.email import generate_token, MandrillException
+from dmutils.email import generate_token
 from ..helpers import BaseApplicationTest
 import mock
 
@@ -150,7 +151,6 @@ class TestInviteUser(BaseApplicationTest):
 
             self.login()
 
-            self.app.config['DM_MANDRILL_API_KEY'] = "API KEY"
             self.app.config['INVITE_EMAIL_SUBJECT'] = "SUBJECT"
             self.app.config['INVITE_EMAIL_FROM'] = "EMAIL FROM"
             self.app.config['INVITE_EMAIL_NAME'] = "EMAIL NAME"
