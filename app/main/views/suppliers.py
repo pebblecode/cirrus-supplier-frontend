@@ -8,7 +8,7 @@ import six
 
 from dmapiclient import APIError
 from dmapiclient.audit import AuditTypes
-from dmutils.email import send_email, generate_token, MandrillException
+from dmutils.email import generate_token
 from dmutils.content_loader import ContentNotFoundError
 
 from ...main import main, content_loader
@@ -21,6 +21,7 @@ from ..helpers.frameworks import get_frameworks_by_status
 from ..helpers import hash_email, login_required
 from .users import get_current_suppliers_users
 
+from cirrus.email import send_email
 
 @main.route('')
 @login_required
@@ -403,14 +404,13 @@ def submit_company_summary():
             send_email(
                 account_email_address,
                 email_body,
-                current_app.config['DM_MANDRILL_API_KEY'],
                 current_app.config['CREATE_USER_SUBJECT'],
                 current_app.config['RESET_PASSWORD_EMAIL_FROM'],
                 current_app.config['RESET_PASSWORD_EMAIL_NAME'],
                 ["user-creation"]
             )
             session['email_sent_to'] = account_email_address
-        except MandrillException as e:
+        except Exception as e:
             current_app.logger.error(
                 "suppliercreate.fail: Create user email failed to send. "
                 "error {error} supplier_id {supplier_id} email_hash {email_hash}",

@@ -9,8 +9,8 @@ import six
 
 from dmapiclient import APIError
 from dmapiclient.audit import AuditTypes
-from dmutils.email import send_email, MandrillException
 from dmutils.formats import format_service_price, datetimeformat
+
 from dmutils import s3
 from dmutils.documents import (
     RESULT_LETTER_FILENAME, AGREEMENT_FILENAME, SIGNED_AGREEMENT_PREFIX, COUNTERSIGNED_AGREEMENT_FILENAME,
@@ -31,6 +31,7 @@ from ..helpers.validation import get_validator
 from ..helpers.services import (
     get_signed_document_url, get_drafts, get_lot_drafts, count_unanswered_questions
 )
+from cirrus.email import send_email
 
 CLARIFICATION_QUESTION_NAME = 'clarification_question'
 
@@ -49,13 +50,12 @@ def framework_dashboard(framework_slug):
             send_email(
                 [user['emailAddress'] for user in supplier_users['users'] if user['active']],
                 email_body,
-                current_app.config['DM_MANDRILL_API_KEY'],
                 'You have started your {} application'.format(framework['name']),
                 current_app.config['CLARIFICATION_EMAIL_FROM'],
                 current_app.config['CLARIFICATION_EMAIL_NAME'],
                 ['{}-application-started'.format(framework_slug)]
             )
-        except MandrillException as e:
+        except Exception as e:
             current_app.logger.error(
                 "Application started email failed to send: {error}, supplier_id: {supplier_id}",
                 extra={'error': six.text_type(e), 'supplier_id': current_user.supplier_id}
@@ -403,14 +403,13 @@ def framework_updates_email_clarification_question(framework_slug):
         send_email(
             to_address,
             email_body,
-            current_app.config['DM_MANDRILL_API_KEY'],
             subject,
             current_app.config["DM_GENERIC_NOREPLY_EMAIL"],
             "{} Supplier".format(framework['name']),
             tags,
             reply_to=from_address,
         )
-    except MandrillException as e:
+    except Exception as e:
         current_app.logger.error(
             "{framework} clarification question email failed to send. "
             "error {error} supplier_id {supplier_id} email_hash {email_hash}",
@@ -436,13 +435,12 @@ def framework_updates_email_clarification_question(framework_slug):
             send_email(
                 current_user.email_address,
                 email_body,
-                current_app.config['DM_MANDRILL_API_KEY'],
                 subject,
                 current_app.config['CLARIFICATION_EMAIL_FROM'],
                 current_app.config['CLARIFICATION_EMAIL_NAME'],
                 tags
             )
-        except MandrillException as e:
+        except Exception as e:
             current_app.logger.error(
                 "{framework} clarification question confirmation email failed to send. "
                 "error {error} supplier_id {supplier_id} email_hash {email_hash}",
@@ -550,14 +548,13 @@ def upload_framework_agreement(framework_slug):
         send_email(
             current_app.config['DM_FRAMEWORK_AGREEMENTS_EMAIL'],
             email_body,
-            current_app.config['DM_MANDRILL_API_KEY'],
             '{} framework agreement'.format(framework['name']),
             current_app.config["DM_GENERIC_NOREPLY_EMAIL"],
             '{} Supplier'.format(framework['name']),
             ['{}-framework-agreement'.format(framework_slug)],
             reply_to=current_user.email_address,
         )
-    except MandrillException as e:
+    except Exception as e:
         current_app.logger.error(
             "Framework agreement email failed to send. "
             "error {error} supplier_id {supplier_id} email_hash {email_hash}",

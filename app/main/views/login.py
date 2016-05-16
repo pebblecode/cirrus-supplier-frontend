@@ -129,13 +129,12 @@ def send_invite_user():
             send_email(
                 form.email_address.data,
                 email_body,
-                current_app.config['DM_MANDRILL_API_KEY'],
                 current_app.config['INVITE_EMAIL_SUBJECT'],
                 current_app.config['INVITE_EMAIL_FROM'],
                 current_app.config['INVITE_EMAIL_NAME'],
                 ["user-invite"]
             )
-        except MandrillException as e:
+        except Exception as e:
             current_app.logger.error(
                 "Invitation email failed to send. "
                 "error {error} supplier_id {supplier_id} email_hash {email_hash}",
