@@ -29,15 +29,7 @@ class TestApplication(BaseApplicationTest):
         res = self.client.get('/service/1234')
         assert_equal(404, res.status_code)
         assert_true(
-            "Check you've entered the correct web "
-            "address or start again on the Digital Marketplace homepage."
-            in res.get_data(as_text=True))
-        assert_true(
-            "If you can't find what you're looking for, contact us at "
-            "<a href=\"mailto:enquiries@cirrus.pebblecode.com?"
-            "subject=Digital%20Marketplace%20feedback\" title=\"Please "
-            "send feedback to enquiries@dcirrus.pebblecode.com\">"
-            "enquiries@cirrus.pebblecode.com</a>"
+            "Check you've entered the correct web address"
             in res.get_data(as_text=True))
 
     @mock.patch('app.main.views.suppliers.data_api_client')
