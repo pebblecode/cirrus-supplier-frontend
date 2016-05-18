@@ -104,7 +104,7 @@ class Test(Config):
 
 
 class Development(Config):
-    DEBUG = True
+    DEBUG = False
     SESSION_COOKIE_SECURE = False
 
     # Dates not formatted like YYYY-(0)M-(0)D will fail
