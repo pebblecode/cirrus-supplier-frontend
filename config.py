@@ -145,7 +145,7 @@ class Staging(Production):
 
 configs = {
     'development': Development,
-    'preview': Preview,
+    'preview': Development,
     'staging': Staging,
     'production': Production,
     'test': Test,
