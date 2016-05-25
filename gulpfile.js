@@ -18,9 +18,9 @@ var dmToolkitRoot = bowerRoot + '/digitalmarketplace-frontend-toolkit/toolkit';
 var sspContentRoot = bowerRoot + '/digitalmarketplace-frameworks';
 var assetsFolder = repoRoot + 'app/assets';
 var staticFolder = repoRoot + 'app/static';
-var govukTemplateFolder = repoRoot + 'bower_components/govuk_template';
-var govukTemplateAssetsFolder = govukTemplateFolder + '/assets';
-var govukTemplateLayoutsFolder = govukTemplateFolder + '/views/layouts';
+var baseTemplateFolder = npmRoot + '/cirrus-base-template';
+var baseTemplateAssetsFolder = baseTemplateFolder + '/assets';
+var baseTemplateLayoutsFolder = baseTemplateFolder + '/views/layouts';
 
 // JavaScript paths
 var jsSourceFile = assetsFolder + '/javascripts/application.js';
@@ -156,7 +156,7 @@ gulp.task(
   'copy:template_assets:stylesheets',
   copyFactory(
     "GOV.UK template stylesheets",
-    govukTemplateAssetsFolder + '/stylesheets',
+    baseTemplateAssetsFolder + '/stylesheets',
     staticFolder + '/stylesheets'
   )
 );
@@ -165,7 +165,7 @@ gulp.task(
   'copy:template_assets:images',
   copyFactory(
     "GOV.UK template images",
-    govukTemplateAssetsFolder + '/images',
+    baseTemplateAssetsFolder + '/images',
     staticFolder + '/images'
   )
 );
@@ -174,7 +174,7 @@ gulp.task(
   'copy:template_assets:javascripts',
   copyFactory(
     'GOV.UK template Javascript files',
-    govukTemplateAssetsFolder + '/javascripts',
+    baseTemplateAssetsFolder + '/javascripts',
     staticFolder + '/javascripts'
   )
 );
@@ -228,8 +228,8 @@ gulp.task(
   'copy:govuk_template',
   copyFactory(
     "GOV.UK template into app folder",
-    govukTemplateLayoutsFolder,
-    'app/templates/govuk'
+    baseTemplateLayoutsFolder,
+    'app/templates/cirrus-base'
   )
 );
 
