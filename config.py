@@ -23,7 +23,7 @@ class Config(object):
 
     DM_DATA_API_URL = None
     DM_DATA_API_AUTH_TOKEN = None
-    DM_CLARIFICATION_QUESTION_EMAIL = 'digitalmarketplace@mailinator.com'
+    DM_CLARIFICATION_QUESTION_EMAIL = 'cirrus@mailinator.com'
     DM_FRAMEWORK_AGREEMENTS_EMAIL = 'enquiries@example.com'
 
     DM_AGREEMENTS_BUCKET = None
@@ -45,7 +45,7 @@ class Config(object):
     CLARIFICATION_EMAIL_NAME = 'Cirrus Admin'
     CLARIFICATION_EMAIL_FROM = 'do-not-reply@cirrus.pebblecode.com'
     CLARIFICATION_EMAIL_SUBJECT = 'Thanks for your clarification question'
-    DM_FOLLOW_UP_EMAIL_TO = 'digitalmarketplace@mailinator.com'
+    DM_FOLLOW_UP_EMAIL_TO = 'cirrus@mailinator.com'
 
     DM_GENERIC_NOREPLY_EMAIL = 'do-not-reply@cirrus.pebblecode.com'
 
@@ -90,7 +90,7 @@ class Test(Config):
     WTF_CSRF_ENABLED = False
     SERVER_NAME = 'localhost'
     SHARED_EMAIL_KEY = "KEY"
-    DM_CLARIFICATION_QUESTION_EMAIL = 'digitalmarketplace@mailinator.com'
+    DM_CLARIFICATION_QUESTION_EMAIL = 'cirrus@mailinator.com'
 
     FEATURE_FLAGS_EDIT_SECTIONS = enabled_since('2015-06-03')
 
