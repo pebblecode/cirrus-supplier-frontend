@@ -5,11 +5,15 @@ from flask_login import LoginManager
 from flask_wtf.csrf import CsrfProtect
 
 import dmapiclient
-from dmutils import init_app, flask_featureflags
+from dmutils import init_app, flask_featureflags, s3
 from dmutils.user import User
 
 from config import configs
 
+# Foul and disgusting hack:
+s3.BUCKET_SHORT_NAME_PATTERN = re.compile(
+    r'^cirrus-([^\-]+)-([^\-]+)-(\2)$'
+)
 
 data_api_client = dmapiclient.DataAPIClient()
 login_manager = LoginManager()
