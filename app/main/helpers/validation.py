@@ -220,9 +220,13 @@ class DOSValidator(DeclarationValidator):
 class G8Validator(DOSValidator):
     pass
 
+class CirrusValidator(DeclarationValidator):
+    pass
+
 
 VALIDATORS = {
     "g-cloud-7": G7Validator,
     "g-cloud-8": G8Validator,
+    "cirrus": G8Validator,
     "digital-outcomes-and-specialists": DOSValidator,
 }
