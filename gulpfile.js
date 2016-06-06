@@ -7,6 +7,8 @@ var include = require('gulp-include');
 var colours = require('colors/safe');
 var jasmine = require('gulp-jasmine-phantom');
 var sourcemaps = require('gulp-sourcemaps');
+var path = require('path');
+var runSequence = require('run-sequence');
 
 // Paths
 var environment;
@@ -30,6 +32,7 @@ var jsDistributionFile = 'application.js';
 // CSS paths
 var cssSourceGlob = assetsFolder + '/scss/application*.scss';
 var cssDistributionFolder = staticFolder + '/stylesheets';
+var cirrusBaseSourceGlob = assetsFolder + '/cirrus-base/govuk-template*.scss';
 
 // Configuration
 var sassOptions = {
@@ -79,7 +82,7 @@ var logErrorAndExit = function logErrorAndExit(err) {
   printError('message', err.message);
   printError('file name', err.fileName);
   printError('line number', err.lineNumber);
-  process.exit(1);
+  this.emit('end');
 
 };
 
@@ -168,6 +171,34 @@ function copyFactory(resourceName, sourceFolder, targetFolder) {
 }
 
 gulp.task(
+  'copy:local_base_template_repo',
+  copyFactory(
+    "Copying local changes to cirrus-base-template",
+    path.resolve(__dirname, '../cirrus-base-template/'),
+    baseTemplateFolder
+  )
+)
+
+gulp.task(
+  'copy:all_local',
+  function(cb){
+    runSequence(
+      'copy:local_base_template_repo', 
+      'copy:govuk_template',
+      'copy:template_assets:sass',
+      'copy:template_assets:images',
+      'copy:template_assets:stylesheets',
+      'copy:template_assets:javascripts',
+      'cirrus-base',
+      function shouldBeDone() {
+        console.log('**** Local Base template copying complete. ****')
+        cb();
+      }
+    )
+  }
+);
+
+gulp.task(
   'copy:template_assets:sass',
   copyFactory(
     "GOV.UK template Sass",
@@ -179,7 +210,7 @@ gulp.task(
 gulp.task(
   'copy:template_assets:stylesheets',
   copyFactory(
-    "GOV.UK template stylesheets",
+    "GOV.UK template CSS",
     baseTemplateAssetsFolder + '/stylesheets',
     staticFolder + '/stylesheets'
   )
@@ -249,6 +280,15 @@ gulp.task(
 );
 
 gulp.task(
+  'copy:svg',
+  copyFactory(
+    "image assets from app to static folder",
+    assetsFolder + '/svg',
+    staticFolder + '/svg'
+  )
+);
+
+gulp.task(
   'copy:govuk_template',
   copyFactory(
     "GOV.UK template into app folder",
@@ -257,13 +297,13 @@ gulp.task(
   )
 );
 
-gulp.task(
+ gulp.task(
   'copy:frameworks',
   copyFactory(
-    "frameworks YAML into app folder",
-    sspContentRoot + '/frameworks', 'app/content/frameworks'
-  )
-);
+    "content and frameworks YAML into app folder",
+    sspContentRoot, 'app/content'
+   )
+ );
 
 gulp.task('test', function () {
   var manifest = require(repoRoot + 'spec/javascripts/manifest.js').manifest;
@@ -291,8 +331,13 @@ gulp.task('watch', ['build:development'], function () {
     console.log('File ' + event.path + ' was ' + event.type + ' running tasks...');
   };
 
+  var localBaseTempalteRepoWatcher = gulp.watch([ path.resolve(__dirname, '../cirrus-base-template/**/*') ], [
+    'copy:all_local'
+  ]);
+
   cssWatcher.on('change', notice);
   jsWatcher.on('change', notice);
+  localBaseTempalteRepoWatcher.on('change', notice);
 });
 
 gulp.task('set_environment_to_development', function (cb) {
@@ -318,6 +363,7 @@ gulp.task(
     'copy:dm_toolkit_assets:images',
     'copy:dm_toolkit_assets:templates',
     'copy:images',
+    'copy:svg',
     'copy:govuk_template'
   ]
 );
@@ -330,6 +376,7 @@ gulp.task(
   function() {
     gulp.start('sass');
     gulp.start('js');
+    gulp.start('cirrus-base');
   }
 );
 
