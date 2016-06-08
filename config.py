@@ -35,19 +35,19 @@ class Config(object):
     DEBUG = False
 
     RESET_PASSWORD_EMAIL_NAME = 'Cirrus Admin'
-    RESET_PASSWORD_EMAIL_FROM = 'enquiries@cirrus.pebblecode.com'
+    RESET_PASSWORD_EMAIL_FROM = 'enquiries@inoket.com'
     RESET_PASSWORD_EMAIL_SUBJECT = 'Reset your Cirrus password'
 
     INVITE_EMAIL_NAME = 'Cirrus Admin'
-    INVITE_EMAIL_FROM = 'enquiries@cirrus.pebblecode.com'
+    INVITE_EMAIL_FROM = 'enquiries@inoket.com'
     INVITE_EMAIL_SUBJECT = 'Your Cirrus invitation'
 
     CLARIFICATION_EMAIL_NAME = 'Cirrus Admin'
-    CLARIFICATION_EMAIL_FROM = 'do-not-reply@cirrus.pebblecode.com'
+    CLARIFICATION_EMAIL_FROM = 'do-not-reply@inoket.com'
     CLARIFICATION_EMAIL_SUBJECT = 'Thanks for your clarification question'
     DM_FOLLOW_UP_EMAIL_TO = 'cirrus@mailinator.com'
 
-    DM_GENERIC_NOREPLY_EMAIL = 'do-not-reply@cirrus.pebblecode.com'
+    DM_GENERIC_NOREPLY_EMAIL = 'do-not-reply@inoket.com'
 
     CREATE_USER_SUBJECT = 'Create your Cirrus account'
     SECRET_KEY = None
@@ -129,7 +129,7 @@ class Live(Config):
     DEBUG = False
     DM_HTTP_PROTO = 'https'
 
-    DM_FRAMEWORK_AGREEMENTS_EMAIL = 'enquiries@cirrus.pebblecode.com'
+    DM_FRAMEWORK_AGREEMENTS_EMAIL = 'enquiries@inoket.com'
 
 
 class Preview(Live):
