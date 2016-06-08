@@ -22,10 +22,10 @@ content_loader.load_manifest('g-cloud-8', 'services', 'edit_submission')
 content_loader.load_manifest('g-cloud-8', 'declaration', 'declaration')
 content_loader.load_messages('g-cloud-8', ['dates'])
 
-content_loader.load_manifest('cirrus-1', 'services', 'edit_service')
-content_loader.load_manifest('cirrus-1', 'services', 'edit_submission')
-content_loader.load_manifest('cirrus-1', 'declaration', 'declaration')
-content_loader.load_messages('cirrus-1', ['dates'])
+content_loader.load_manifest('inoket-1', 'services', 'edit_service')
+content_loader.load_manifest('inoket-1', 'services', 'edit_submission')
+content_loader.load_manifest('inoket-1', 'declaration', 'declaration')
+content_loader.load_messages('inoket-1', ['dates'])
 
 
 @main.after_request
