@@ -98,8 +98,8 @@ class Test(Config):
 
     SECRET_KEY = 'not_very_secret'
 
-    DM_SUBMISSIONS_BUCKET = 'cirrus-submissions-dev-dev'
-    DM_COMMUNICATIONS_BUCKET = 'cirrus-communications-dev-dev'
+    DM_SUBMISSIONS_BUCKET = 'inoket-submissions-preview-preview'
+    DM_COMMUNICATIONS_BUCKET = 'inoket-communications-preview-preview'
     DM_ASSETS_URL = 'http://asset-host'
 
 
@@ -114,10 +114,10 @@ class Development(Config):
     DM_DATA_API_AUTH_TOKEN = os.getenv('DM_API_AUTH_TOKEN', "myToken")
     DM_API_AUTH_TOKEN = os.getenv('DM_API_AUTH_TOKEN', "myToken")
 
-    DM_SUBMISSIONS_BUCKET = "cirrus-submissions-dev-dev"
-    DM_COMMUNICATIONS_BUCKET = "cirrus-communications-dev-dev"
-    DM_AGREEMENTS_BUCKET = "cirrus-agreements-dev-dev"
-    DM_DOCUMENTS_BUCKET = "cirrus-documents-dev-dev"
+    DM_SUBMISSIONS_BUCKET = "inoket-submissions-preview-preview"
+    DM_COMMUNICATIONS_BUCKET = "inoket-communications-preview-preview"
+    DM_AGREEMENTS_BUCKET = "inoket-agreements-preview-preview"
+    DM_DOCUMENTS_BUCKET = "inoket-documents-preview-preview"
     DM_ASSETS_URL = "https://{}.s3-eu-west-1.amazonaws.com".format(DM_SUBMISSIONS_BUCKET)
 
     SHARED_EMAIL_KEY = "very_secret"
