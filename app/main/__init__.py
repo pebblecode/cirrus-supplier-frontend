@@ -27,6 +27,10 @@ content_loader.load_manifest('inoket-1', 'services', 'edit_submission')
 content_loader.load_manifest('inoket-1', 'declaration', 'declaration')
 content_loader.load_messages('inoket-1', ['dates'])
 
+content_loader.load_manifest('inoket-2', 'services', 'edit_service')
+content_loader.load_manifest('inoket-2', 'services', 'edit_submission')
+content_loader.load_manifest('inoket-2', 'declaration', 'declaration')
+content_loader.load_messages('inoket-2', ['dates'])
 
 @main.after_request
 def add_cache_control(response):
