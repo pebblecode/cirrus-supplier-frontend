@@ -5,7 +5,7 @@ resources:
     type: git
     source:
       uri: git@github.com:pebblecode/cirrus-supplier-frontend
-      branch: deploy
+      branch: master
       private_key: {{github_deploy_key}}
   - name: version
     type: semver
