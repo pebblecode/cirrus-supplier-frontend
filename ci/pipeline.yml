@@ -68,7 +68,6 @@ jobs:
         passed: [upload-rc]
         trigger: true
       - get: version
-        trigger: true
         passed: [build-rc]
       - task: create-beanstalk-application-version
         config:
@@ -96,5 +95,4 @@ jobs:
                 aws elasticbeanstalk create-application-version --region=eu-west-1 --application-name dev-supplier-frontend --version-label $VERSION_LABEL --source-bundle S3Bucket=dev-inoket-deploy-artifacts,S3Key="supplier-frontend/rc-${VERSION}.zip" || true
                 aws elasticbeanstalk update-environment --region=eu-west-1 --application-name dev-supplier-frontend --environment-name dev-supplier-fe --version-label $VERSION_LABEL
       - put: version
-        params: {file: version/number}
 
