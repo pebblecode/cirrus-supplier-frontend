@@ -39,7 +39,8 @@ jobs:
     serial_groups: [version]
     plan:
       - get: version
-        params: {pre: rc}
+        params:
+          pre: rc
       - get: supplier-frontend
         trigger: true
       - aggregate:
@@ -53,6 +54,8 @@ jobs:
         file: supplier-frontend/ci/bundle.yml
       - put: release-artifacts
         params: {file: bundle/rc-*.zip}
+      - put: version
+        params: {file: version/number}
   - name: upload-rc
     plan:
       - get: release-artifacts
@@ -61,6 +64,7 @@ jobs:
       - put: dev-env-artifacts
         params: {file: release-artifacts/rc-*.zip}
   - name: deploy-beanstalk
+    serial: true
     serial_groups: [version]
     passed: [upload-rc]
     plan:
@@ -94,5 +98,4 @@ jobs:
                 VERSION_LABEL="rc-${VERSION}"
                 aws elasticbeanstalk create-application-version --region=eu-west-1 --application-name dev-supplier-frontend --version-label $VERSION_LABEL --source-bundle S3Bucket=dev-inoket-deploy-artifacts,S3Key="supplier-frontend/rc-${VERSION}.zip" || true
                 aws elasticbeanstalk update-environment --region=eu-west-1 --application-name dev-supplier-frontend --environment-name dev-supplier-fe --version-label $VERSION_LABEL
-      - put: version
 
