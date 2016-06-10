@@ -65,6 +65,7 @@ jobs:
     plan:
       - get: dev-env-artifacts
         passed: [upload-rc]
+        trigger: true
       - get: version
         trigger: true
         passed: [build-rc]
