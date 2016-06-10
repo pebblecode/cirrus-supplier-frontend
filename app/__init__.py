@@ -12,7 +12,7 @@ from config import configs
 
 # Foul and disgusting hack:
 s3.BUCKET_SHORT_NAME_PATTERN = re.compile(
-    r'^cirrus-([^\-]+)-([^\-]+)-(\2)$'
+    r'^inoket-([^\-]+)-([^\-]+)-(\2)$'
 )
 
 data_api_client = dmapiclient.DataAPIClient()

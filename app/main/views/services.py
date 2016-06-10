@@ -101,7 +101,7 @@ def edit_section(service_id, section_id):
     if not is_service_associated_with_supplier(service):
         abort(404)
 
-    content = content_loader.get_manifest('g-cloud-6', 'edit_service').filter(service)
+    content = content_loader.get_manifest('inoket-1', 'edit_service').filter(service)
     section = content.get_section(section_id)
     if section is None or not section.editable:
         abort(404)
@@ -126,7 +126,7 @@ def update_section(service_id, section_id):
     if not is_service_associated_with_supplier(service):
         abort(404)
 
-    content = content_loader.get_manifest('g-cloud-6', 'edit_service').filter(service)
+    content = content_loader.get_manifest('inoket-1', 'edit_service').filter(service)
     section = content.get_section(section_id)
     if section is None or not section.editable:
         abort(404)
@@ -406,7 +406,6 @@ def edit_service_submission(framework_slug, lot_slug, service_id, section_id, qu
 def update_section_submission(framework_slug, lot_slug, service_id, section_id, question_slug=None):
     framework, lot = get_framework_and_lot(data_api_client, framework_slug, lot_slug, allowed_statuses=['open'])
 
-    #import pdb; pdb.set_trace();
     try:
         draft = data_api_client.get_draft_service(service_id)['services']
     except HTTPError as e:

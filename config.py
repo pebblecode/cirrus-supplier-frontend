@@ -35,19 +35,19 @@ class Config(object):
     DEBUG = False
 
     RESET_PASSWORD_EMAIL_NAME = 'Cirrus Admin'
-    RESET_PASSWORD_EMAIL_FROM = 'enquiries@cirrus.pebblecode.com'
+    RESET_PASSWORD_EMAIL_FROM = 'enquiries@inoket.com'
     RESET_PASSWORD_EMAIL_SUBJECT = 'Reset your Cirrus password'
 
     INVITE_EMAIL_NAME = 'Cirrus Admin'
-    INVITE_EMAIL_FROM = 'enquiries@cirrus.pebblecode.com'
+    INVITE_EMAIL_FROM = 'enquiries@inoket.com'
     INVITE_EMAIL_SUBJECT = 'Your Cirrus invitation'
 
     CLARIFICATION_EMAIL_NAME = 'Cirrus Admin'
-    CLARIFICATION_EMAIL_FROM = 'do-not-reply@cirrus.pebblecode.com'
+    CLARIFICATION_EMAIL_FROM = 'do-not-reply@inoket.com'
     CLARIFICATION_EMAIL_SUBJECT = 'Thanks for your clarification question'
     DM_FOLLOW_UP_EMAIL_TO = 'cirrus@mailinator.com'
 
-    DM_GENERIC_NOREPLY_EMAIL = 'do-not-reply@cirrus.pebblecode.com'
+    DM_GENERIC_NOREPLY_EMAIL = 'do-not-reply@inoket.com'
 
     CREATE_USER_SUBJECT = 'Create your Cirrus account'
     SECRET_KEY = None
@@ -98,8 +98,8 @@ class Test(Config):
 
     SECRET_KEY = 'not_very_secret'
 
-    DM_SUBMISSIONS_BUCKET = 'cirrus-submissions-dev-dev'
-    DM_COMMUNICATIONS_BUCKET = 'cirrus-communications-dev-dev'
+    DM_SUBMISSIONS_BUCKET = 'inoket-submissions-preview-preview'
+    DM_COMMUNICATIONS_BUCKET = 'inoket-communications-preview-preview'
     DM_ASSETS_URL = 'http://asset-host'
 
 
@@ -114,10 +114,10 @@ class Development(Config):
     DM_DATA_API_AUTH_TOKEN = os.getenv('DM_API_AUTH_TOKEN', "myToken")
     DM_API_AUTH_TOKEN = os.getenv('DM_API_AUTH_TOKEN', "myToken")
 
-    DM_SUBMISSIONS_BUCKET = "cirrus-submissions-dev-dev"
-    DM_COMMUNICATIONS_BUCKET = "cirrus-communications-dev-dev"
-    DM_AGREEMENTS_BUCKET = "cirrus-agreements-dev-dev"
-    DM_DOCUMENTS_BUCKET = "cirrus-documents-dev-dev"
+    DM_SUBMISSIONS_BUCKET = "inoket-submissions-preview-preview"
+    DM_COMMUNICATIONS_BUCKET = "inoket-communications-preview-preview"
+    DM_AGREEMENTS_BUCKET = "inoket-agreements-preview-preview"
+    DM_DOCUMENTS_BUCKET = "inoket-documents-preview-preview"
     DM_ASSETS_URL = "https://{}.s3-eu-west-1.amazonaws.com".format(DM_SUBMISSIONS_BUCKET)
 
     SHARED_EMAIL_KEY = "very_secret"
@@ -129,7 +129,7 @@ class Live(Config):
     DEBUG = False
     DM_HTTP_PROTO = 'https'
 
-    DM_FRAMEWORK_AGREEMENTS_EMAIL = 'enquiries@cirrus.pebblecode.com'
+    DM_FRAMEWORK_AGREEMENTS_EMAIL = 'enquiries@inoket.com'
 
 
 class Preview(Live):
