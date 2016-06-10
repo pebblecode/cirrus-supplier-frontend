@@ -1,0 +1,26 @@
+# vim: et:sw=2:ts=2
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: python
+    tag: "2.7"
+
+inputs:
+- name: code
+
+run:
+  path: sh
+  args:
+    - -exc
+    - |
+      cd code
+      make requirements requirements_for_test bundle_app
+      cp -r build/. ../app/
+outputs:
+  - name: app
+params:
+  CI: "true"
+

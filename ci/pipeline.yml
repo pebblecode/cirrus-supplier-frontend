@@ -1,0 +1,98 @@
+# vim: et:sw=2:ts=2
+---
+resources:
+  - name: supplier-frontend
+    type: git
+    source:
+      uri: git@github.com:pebblecode/cirrus-supplier-frontend
+      branch: deploy
+      private_key: {{github_deploy_key}}
+  - name: version
+    type: semver
+    source:
+      bucket: inoket-build-artifacts
+      region_name: eu-west-1
+      access_key_id: {{semver_bucket_access_key_id}}
+      secret_access_key: {{semver_bucket_secret_access_key}}
+      key: supplier-frontend/current-version
+      initial_version: 1.0.0
+  - name: release-artifacts
+    type: s3
+    source:
+      bucket: inoket-build-artifacts
+      regexp: supplier-frontend/rc-(.*).zip
+      access_key_id: {{semver_bucket_access_key_id}}
+      secret_access_key: {{semver_bucket_secret_access_key}}
+      region_name: eu-west-1
+      private: true
+  - name: dev-env-artifacts
+    type: s3
+    source:
+      bucket: dev-inoket-deploy-artifacts
+      regexp: supplier-frontend/rc-(.*).zip
+      access_key_id: {{dev_access_key_id}}
+      secret_access_key: {{dev_secret_access_key}}
+      region_name: eu-west-1
+      private: true
+jobs:
+  - name: build-rc
+    serial_groups: [version]
+    plan:
+      - get: version
+      - get: supplier-frontend
+        trigger: true
+      - aggregate:
+        - task: compile-assets
+          file: supplier-frontend/ci/build_assets.yml
+          input_mapping: {code: supplier-frontend}
+        - task: install-python-dependencies
+          file: supplier-frontend/ci/build_app.yml
+          input_mapping: {code: supplier-frontend}
+      - task: bundle
+        file: supplier-frontend/ci/bundle.yml
+      - put: release-artifacts
+        params: {file: bundle/rc-*.zip}
+  - name: upload-rc
+    plan:
+      - get: release-artifacts
+        trigger: true
+        passed: [build-rc]
+      - put: dev-env-artifacts
+        params: {file: release-artifacts/rc-*.zip}
+  - name: deploy-beanstalk
+    serial_groups: [version]
+    passed: [upload-rc]
+    plan:
+      - get: dev-env-artifacts
+        passed: [upload-rc]
+      - get: version
+        trigger: true
+        passed: [build-rc]
+      - task: create-beanstalk-application-version
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: python
+              tag: "2.7"
+          inputs:
+            - name: version
+          run:
+            path: sh
+            args:
+              - -ec
+              - |
+                pip install awscli
+                set +x
+                VERSION=$(cat version/number)
+                AWS_ACCESS_KEY_ID={{dev_access_key_id}}
+                AWS_SECRET_ACCESS_KEY={{dev_secret_access_key}}
+                export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
+                set -x
+                VERSION_LABEL="rc-${VERSION}"
+                aws elasticbeanstalk create-application-version --region=eu-west-1 --application-name dev-supplier-frontend --version-label $VERSION_LABEL --source-bundle S3Bucket=dev-inoket-deploy-artifacts,S3Key="supplier-frontend/rc-${VERSION}.zip" || true
+                aws elasticbeanstalk update-environment --region=eu-west-1 --application-name dev-supplier-frontend --environment-name dev-supplier-fe --version-label $VERSION_LABEL
+      - put: version
+        params: {file: version/number}
+

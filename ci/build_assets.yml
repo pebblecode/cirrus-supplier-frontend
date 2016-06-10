@@ -1,0 +1,26 @@
+# vim: et:sw=2:ts=2
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: node
+    tag: "4.4"
+
+inputs:
+- name: code
+
+run:
+  path: sh
+  args:
+    - -exc
+    - |
+      cd code
+      make frontend_build bundle_assets
+      cp -r build/* ../assets/
+outputs:
+- name: assets
+params:
+  CI: "true"
+

@@ -1,0 +1,35 @@
+# vim: et:sw=2:ts=2
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: alpine
+    tag: "3.4"
+
+inputs:
+  - name: assets
+  - name: app
+  - name: version
+
+run:
+  path: sh
+  args:
+    - -exc
+    - |
+      apk --update add zip
+      VERSION=$(cat version/number)
+      [[ -z "$VERSION" ]] && exit 1
+      mkdir tmp
+      cp -r ./app/. tmp/
+      cp -r ./assets/. tmp/app/
+      cd tmp
+      zip -r ../bundle/rc-$(cat ../version/number).zip .
+      cd ..
+
+outputs:
+  - name: bundle
+params:
+  CI: "true"
+
