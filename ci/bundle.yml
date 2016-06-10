@@ -23,7 +23,7 @@ run:
       [[ -z "$VERSION" ]] && exit 1
       mkdir tmp
       cp -r ./app/. tmp/
-      cp -r ./assets/. tmp/app/
+      cp -rv ./assets/. tmp/app/
       cd tmp
       zip -r ../bundle/rc-$(cat ../version/number).zip .
       cd ..
