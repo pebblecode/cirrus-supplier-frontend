@@ -101,7 +101,7 @@ def edit_section(service_id, section_id):
     if not is_service_associated_with_supplier(service):
         abort(404)
 
-    content = content_loader.get_manifest('g-cloud-6', 'edit_service').filter(service)
+    content = content_loader.get_manifest('inoket-1', 'edit_service').filter(service)
     section = content.get_section(section_id)
     if section is None or not section.editable:
         abort(404)
@@ -126,7 +126,7 @@ def update_section(service_id, section_id):
     if not is_service_associated_with_supplier(service):
         abort(404)
 
-    content = content_loader.get_manifest('g-cloud-6', 'edit_service').filter(service)
+    content = content_loader.get_manifest('inoket-1', 'edit_service').filter(service)
     section = content.get_section(section_id)
     if section is None or not section.editable:
         abort(404)
