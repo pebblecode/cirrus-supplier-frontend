@@ -39,6 +39,7 @@ jobs:
     serial_groups: [version]
     plan:
       - get: version
+        params: {pre: rc}
       - get: supplier-frontend
         trigger: true
       - aggregate:
