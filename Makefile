@@ -62,7 +62,8 @@ bundle_app:
 bundle_assets:
 	mkdir -p $(deploydir)
 	for dir in $(assets); do \
-		cp -r $$dir $(deploydir); \
+		mkdir -p $(deploydir)/$$dir; \
+		cp -r $$dir/. $(deploydir)/$$dir; \
 	done
 
 .PHONY: run_all run_app virtualenv requirements requirements_for_test frontend_build test test_pep8 test_python test_javascript show_environment bundle_app
