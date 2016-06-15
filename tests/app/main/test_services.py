@@ -40,7 +40,7 @@ class TestListServices(BaseApplicationTest):
             data_api_client.find_services.assert_called_once_with(
                 supplier_id=1234)
             assert_in(
-                "You don&#39;t have any services on the Digital Marketplace",
+                "You don&#39;t have any services on Inoket",
                 res.get_data(as_text=True)
             )
 
@@ -1323,7 +1323,7 @@ class TestShowDraftService(BaseApplicationTest):
         assert_true(len(message) > 0)
         assert_in(u"This service was submitted",
                   message[0].xpath('h2[@class="temporary-message-heading"]/text()')[0])
-        assert_in(u"If your application is successful, it will be available on the Digital Marketplace when G-Cloud 7 goes live.",  # noqa
+        assert_in(u"If your application is successful, it will be available on Inoket when G-Cloud 7 goes live.",  # noqa
                   message[0].xpath('p[@class="temporary-message-message"]/text()')[0])
 
 
