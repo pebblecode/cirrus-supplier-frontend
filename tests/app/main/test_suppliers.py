@@ -1485,7 +1485,7 @@ class TestCreateSupplier(BaseApplicationTest):
                 mock.ANY,
 
                 "Create your Cirrus account",
-                "enquiries@cirrus.pebblecode.com",
+                "enquiries@inoket.com",
                 "Cirrus Admin",
                 ["user-creation"]
             )
@@ -1538,7 +1538,7 @@ class TestCreateSupplier(BaseApplicationTest):
             "valid@email.com",
             mock.ANY,
             "Create your Cirrus account",
-            "enquiries@cirrus.pebblecode.com",
+            "enquiries@inoket.com",
             "Cirrus Admin",
             ["user-creation"]
         )

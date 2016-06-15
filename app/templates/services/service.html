@@ -26,7 +26,7 @@
     {% if service_data.status != 'published' and service_unavailability_information %}
       {%
         with
-        message = "If you don’t know why this service was removed or you want to reinstate it, contact <a href='mailto:enquiries@digitalmarketplace.service.gov.uk'>enquiries@digitalmarketplace.service.gov.uk</a>.",
+        message = "If you don’t know why this service was removed or you want to reinstate it, contact <a href='mailto:enquiries@inoket.com'>enquiries@inoket.com</a>.",
         type = "temporary-message",
         heading = "This service was removed on {}".format(service_unavailability_information.createdAt|dateformat)
       %}
@@ -38,7 +38,7 @@
           Are you sure you want to remove your service?
         </p>
         <p class="banner-message">
-          When you remove a service, you can only reinstate it by emailing <a href='mailto:enquiries@digitalmarketplace.service.gov.uk'>enquiries@digitalmarketplace.service.gov.uk</a>.
+          When you remove a service, you can only reinstate it by emailing <a href='mailto:enquiries@inoket.com'>enquiries@inoket.com</a>.
         </p>
         <form class="banner-action" action="{{ url_for('.remove_service', service_id=service_id ) }}" method="POST">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
@@ -96,7 +96,7 @@
         <p>Your service page will be updated to include a message showing users that the service
           is no longer available to buy.</p>
         <p>You’ll need to email
-          <a href="mailto:enquiries@digitalmarketplace.service.gov.uk">enquiries@digitalmarketplace.service.gov.uk</a>
+          <a href="mailto:enquiries@inoket.com">enquiries@inoket.com</a>
            to reinstate your service.</p>
         <form action="{{ url_for('.remove_service', service_id=service_id ) }}" method="POST">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
