@@ -1,6 +1,6 @@
 {% extends "_base_page.html" %}
 
-{% block page_title %}{{ service_data.serviceName or service_data.lotName }} – Digital Marketplace{% endblock %}
+{% block page_title %}{{ service_data.serviceName or service_data.lotName }} – Inoket{% endblock %}
 
 {% block main_content %}
   <div class="grid-row">
@@ -15,7 +15,7 @@
               <p class="banner-message">
           {% if 'remove_last_attempted' in message %}
                 You must offer one of the {{ message.remove_last_attempted.lower() }} to be eligible.<br>
-                If you don&rsquo;t want to offer {{ (service_data.get('serviceName', service_data['lotName'])).lower() }}, 
+                If you don&rsquo;t want to offer {{ (service_data.get('serviceName', service_data['lotName'])).lower() }},
                 delete this service.
                 <span data-analytics="trackPageView" data-url="{{message.virtual_pageview_url}}"></span>
             {% elif category == 'service_deleted' %}
@@ -28,7 +28,7 @@
         {% endfor %}
       {% endif %}
     {% endwith %}
-      
+
     {% if confirm_remove %}
       <form method="post" action='{{ url_for(".remove_subsection", framework_slug=framework.slug, lot_slug=service_data.lot, service_id=service_id, section_id=request.args.get("section_id"), question_slug=confirm_remove, confirm=True) }}'>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />

@@ -7,7 +7,7 @@
 // Path to assets for use with file-url()
 $path: "/suppliers/static/images/";
 
-// Digital Marketplace front end toolkit components
+// Inoket front end toolkit components
 @import "forms/word-counter";
 @import "forms/list-entry";
 
@@ -23,7 +23,7 @@ $path: "/suppliers/static/images/";
   margin-bottom: $gutter * 2;
 }
 
-// Digital Marketplace Front-end toolkit styles
+// Inoket Front-end toolkit styles
 @import "toolkit/_breadcrumb.scss";
 @import "toolkit/_browse-list.scss";
 @import "toolkit/_buttons.scss";
