@@ -3,19 +3,6 @@
 
 {% block page_title %}DUNS number – Create new supplier – Digital Marketplace{% endblock %}
 
-{% block breadcrumb %}
-{%
-  with items = [
-    {
-      "link": "/",
-      "label": "Digital Marketplace"
-    }
-  ]
-%}
-{% include "toolkit/breadcrumb.html" %}
-{% endwith %}
-{% endblock %}
-
 {% block main_content %}
 
 {% if form.duns_number.errors[0] == 'DUNS number already used' %}
@@ -40,7 +27,7 @@
   <div class="grid-row">
     <div class="column-two-thirds">
       <div class="hint">
-        <p>Inoket uses your head office’s 9&#8209;digit DUNS number to see if you’re already a supplier on the G-Cloud
+        <p>Inoket uses your head office’s 9&#8209;digit DUNS number to see if you’re already a supplier on the Inoket
             framework.</p>
         <p><a href="http://www.dnb.co.uk/dandb-duns-number" rel="external">Find out how to get a DUNS number</a></p>
       </div>
